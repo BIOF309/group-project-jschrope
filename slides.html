@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+ "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <title>slides</title>
+  <style type="text/css">
+      code{white-space: pre-wrap;}
+      span.smallcaps{font-variant: small-caps;}
+      span.underline{text-decoration: underline;}
+      div.column{display: inline-block; vertical-align: top; width: 50%;}
+  </style>
+  <link rel="stylesheet" type="text/css" media="screen, projection, print"
+    href="https://www.w3.org/Talks/Tools/Slidy2/styles/slidy.css" />
+  <script src="https://www.w3.org/Talks/Tools/Slidy2/scripts/slidy.js"
+    charset="utf-8" type="text/javascript"></script>
+</head>
+<body>
+<div id="motivation" class="slide section level1">
+<h1>Motivation</h1>
+<p>Collective cell migration (CCM) observed in cancer metastasis</p>
+<p>Overall goal is to understand the underlying physics of CCM through image analysis and mathematical modeling</p>
+<p>Most imaging studies of CCM done in-vitro in cell culture of epithelial cell monolayer. In-vivo would be even better…</p>
+<p>Zebrafish act as a model organism to study CCM</p>
+<ol style="list-style-type: decimal">
+<li><p>Cluster of cells called the posterior lateral line primordium (pllp) migrates during early development</p></li>
+<li><p>Transparency allows for easy in-vivo confocal imaging</p></li>
+</ol>
+</div>
+<div id="zebrafish-pllp-side-view-schematic" class="slide section level1">
+<h1>Zebrafish pllp: Side view schematic</h1>
+<div class="figure">
+<img src="images/pllp_side_schematic.jpg" alt="alt text" />
+<p class="caption">alt text</p>
+</div>
+</div>
+<div id="zebrafish-pllp-top-view-3d-projection-movie" class="slide section level1">
+<h1>Zebrafish pllp: Top view 3D projection movie</h1>
+<div class="figure">
+<embed src="images/pllp_movie.avi" />
+<p class="caption">alt text</p>
+</div>
+</div>
+<div id="previousbackground-work" class="slide section level1">
+<h1>Previous/Background Work</h1>
+<p>My lab has taken movies of different phenotypes of the pllp after making various chemical modifications to the system (ex. inhibiting FGF, Wnt pathways)</p>
+<p>I previously wrote code to extract and track vertex/node movement. Thus I have an adjacency matrix and node positions for each time-frame.</p>
+<ol style="list-style-type: decimal">
+<li>Single time frame image</li>
+</ol>
+<div class="figure">
+<img src="images/newtork_image.jpg" alt="alt text" />
+<p class="caption">alt text</p>
+</div>
+</div>
+<div id="project-goal" class="slide section level1">
+<h1>Project Goal</h1>
+<p>My goal: Use python (networkx specifically) for network analysis of pllp to investigate physical differences between different pllp phenotypes</p>
+<p>My first exercise is splitting network into communities based on the Girvin-Newman algorithm</p>
+<ol style="list-style-type: decimal">
+<li><p>Load in adjacency matrix and node positions from Matlab</p></li>
+<li><p>Construct “Graph” for each time-frame</p></li>
+<li><p>Calculate ‘edge-betweenness’</p></li>
+<li><p>Use that value to build communities based on [https://journals.aps.org/pre/abstract/10.1103/PhysRevE.69.026113]</p></li>
+</ol>
+</div>
+<div id="progress-input-files" class="slide section level1">
+<h1>Progress: Input Files</h1>
+<ol style="list-style-type: decimal">
+<li><p>adj_mat.txt <embed src="images/adj_mat.pdf" /></p></li>
+<li><p>node_tracks.txt</p></li>
+</ol>
+<div class="figure">
+<embed src="images/tracks.pdf" />
+<p class="caption">alt text</p>
+</div>
+<pre><code>-- node (x,y) positions given by first two columns</code></pre>
+</div>
+<div id="progress-code" class="slide section level1">
+<h1>Progress: Code</h1>
+<p>% Import the modules/packages that I need from math import * import numpy as np import networkx as nx import matplotlib.pyplot as plt import collections</p>
+<p>% Build Graph ‘G’</p>
+<p>A = np.genfromtxt(‘adj_mat.txt’, delimiter=“,”, skip_header=1) # Load in adj_mat</p>
+<p>tracks_mat = np.genfromtxt(‘Node_Pos_t1.txt’, delimiter=“,”) # Load positions</p>
+<p>G = nx.from_numpy_matrix(A, create_using=None) # Generate graph from adj_mat</p>
+<p>num_nodes = len(tracks_mat) # Calculate number of nodes for given time-frame</p>
+<p>%% Specify node position</p>
+<p>pos_dict= {}</p>
+<p>for i in range(len(tracks_mat[:, 0])): # Loop through the number of nodes</p>
+<p>pos_dict[i] = (tracks_mat[i,0],tracks_mat[i,1]) # assign position values to node keys</p>
+<p>plt.figure(1) nx.draw(G, pos=pos_dict) plt.show()</p>
+</div>
+<div id="progress-current-output" class="slide section level1">
+<h1>Progress: Current Output</h1>
+<p><img src="images/first_try_network.jpg" alt="alt text" /> (current output)</p>
+<p>– Adjacency matrix is clearly messed up. Look into on Matlab side. – Also need to fix aspect ratio.</p>
+</div>
+<div id="next-steps-try-using-node-positions-and-connectivityedge-list" class="slide section level1">
+<h1>Next steps: Try using node positions and connectivity/edge list</h1>
+<ol style="list-style-type: decimal">
+<li>Edge list</li>
+<li>Node positions(as before)</li>
+</ol>
+</div>
+<div id="girvan-newman-algorithm-to-build-communities" class="slide section level1">
+<h1>Girvan-Newman Algorithm to Build Communities</h1>
+<p>girvan_newman(G, most_valuable_edge=None)</p>
+</div>
+<div id="end-goal" class="slide section level1">
+<h1>End goal</h1>
+<ol style="list-style-type: decimal">
+<li>Build communities for each frame</li>
+<li><p>Compile into a movie to examine the dynamics of the communities ex. Does a certain part of the pllp always constitute a “community” Do the community locations change under different phenotypes? DO the communities move/drift throughout the movie?</p>
+<p>– I plan to have this done by the end of next week</p></li>
+</ol>
+</div>
+</body>
+</html>

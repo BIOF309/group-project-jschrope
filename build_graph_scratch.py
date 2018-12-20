@@ -36,6 +36,8 @@ adj_mat = A > 0 # my adj_mat has values that correspond to edge length attribute
                 # These don't matter, we just want 1's
 G1 = nx.from_numpy_matrix(adj_mat, create_using=None)  # Generate graph from adj_mat
 
+print(adj_mat)
+
 #plt.figure(1)
 #nx.draw(G1, pos=pos_dict)
 #plt.show()
@@ -150,7 +152,7 @@ for node in comm1:
         color_map.append('blue')
 for node in comm2:
         color_map.append('green')
-nx.draw(G3, pos=pos_dict, node_color=color_map, with_labels=False)
+nx.draw(G3, pos=pos_dict, node_color=color_map, with_labels=True)
 plt.show()
 
 

@@ -1,34 +1,31 @@
 import numpy as np
 import pandas as pd
-import networkx as nx
 import matplotlib.pyplot as plt
-
 import networkx as nx
 from networkx.algorithms import community
 
 
 # Load in .txt and .xls files exported from Matlab (will explain them later)
 pos_mat = np.genfromtxt('Node_Pos_t1.txt', delimiter=",")  # Holds node positions (among other info)
-conn_df = pd.read_excel('conn_list.xls') # Holds the 'connectivity' of each node
+conn_df = pd.read_excel('conn_list.xls')  # Holds the 'connectivity' of each node
 conn_list = np.genfromtxt('filename.txt')  # Essentially the indices of the adjacency matrix
 
 
 ### Step 1: Load in node_positions
-# 'Networkx' allows me to specifies node_positions if they
-# are store into a dictionary
+# 'Networkx' allows me to specify node_positions if they
+#  are store into a dictionary
 
-pos_dict= {} # Initialize position dictionary
+pos_dict = {}  # Initialize position dictionary
 
 for k in range(len(pos_mat[:, 0])): # Loop through the number of nodes
         pos_dict[k] = (pos_mat[k,0],pos_mat[k,1]) # assign position values to node keys
 
-# Now however I create my network/graph, I can visualize it with...
+# Now when I create my network/graph, I can visualize it with...
     # nx.draw(Graph, pos = pos_dict)
     # plt.show()
 
-
 #######################################################################################
-# Now I tried to build the network/grpah in a few different ways, the third is still
+# Now I tried to build the network/graph in a few different ways, the third is still
 # not entirely correct... below are my three attempts with detailed explanation:
 #######################################################################################
 
@@ -39,12 +36,13 @@ adj_mat = A > 0 # my adj_mat has values that correspond to edge length attribute
                 # These don't matter, we just want 1's
 G1 = nx.from_numpy_matrix(adj_mat, create_using=None)  # Generate graph from adj_mat
 
-plt.figure(1)
-nx.draw(G1, pos=pos_dict)
+#plt.figure(1)
+#nx.draw(G1, pos=pos_dict)
 #plt.show()
 
 # ISSUE 1: No idea the output is weird... this should work
 
+#######################################################################################
 
 ### Attempt 2: Load in "connectivity list" as .txt file from Matlab
 # 'conn_list.txt' : specifies the nodes that node_i is connected to,
@@ -68,8 +66,8 @@ for i in range(len(conn_df)):  # Loop through each node_i (each row of conn_df)
     for j in range(2):  # range(len(row_i)): # Attempt to loo through length of row_i
         G2.add_edge(i, row_i[j])
 
-plt.figure(2)
-nx.draw(G2, pos=pos_dict)
+#plt.figure(2)
+#nx.draw(G2, pos=pos_dict)
 #plt.show()
 
 # ISSUE: 'len' function still counts "NaN" meaning everything has len = 4,
@@ -101,8 +99,8 @@ for i in range(len(conn_list)):
     row_i = conn_list[i, :]
     G3.add_edge(row_i[0], row_i[1])
 
-plt.figure(3)
-nx.draw(G3, pos=pos_dict)
+#plt.figure(3)
+#nx.draw(G3, pos=pos_dict)
 #plt.show()
 
 #######################################################################################
@@ -140,20 +138,19 @@ def gn(g):
 # Now call function
 G_test = nx.karate_club_graph()
 comm_list = community.girvan_newman(G3)
-set1 = tuple(sorted(c) for c in next(comm_list))
-print(set1)
+split1 = tuple(sorted(c) for c in next(comm_list))
+comm1 = split1[0]
+comm2 = split1[1]
 
-print(len(set1))
-print(set1[1])
 
 plt.figure(4)
-G = nx.erdos_renyi_graph(20,0.1)
+
 color_map = []
-for node in G:
-    if node <10:
+for node in comm1:
         color_map.append('blue')
-    else: color_map.append('green')
-nx.draw(G,node_color = color_map,with_labels = True)
+for node in comm2:
+        color_map.append('green')
+nx.draw(G3, pos=pos_dict, node_color=color_map, with_labels=False)
 plt.show()
 
 

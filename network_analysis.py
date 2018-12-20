@@ -8,7 +8,10 @@ import collections
 
 # Build Graph 'G'
 A = np.genfromtxt('adj_mat.txt', delimiter=",", skip_header=1)  # Load in adj_mat
-adj_mat = A[A > 0]
+adj_mat = A > 0
+print(adj_mat)
+print(A.shape)
+print(adj_mat.shape)
 tracks_mat = np.genfromtxt('Node_Pos_t1.txt', delimiter=",")  # Load positions
 G = nx.from_numpy_matrix(adj_mat, create_using=None)  # Generate graph from adj_mat
 
@@ -32,7 +35,7 @@ print(pos_dict)
 
 plt.figure(1)
 nx.draw(G, pos=pos_dict)
-#plt.show()
+plt.show()
 
 #plt.savefig('books_read.png')
 plt.savefig('first_try_network.jpg')
@@ -69,3 +72,7 @@ print(items)
 # This is making a dictionary then converting it to dataframe. dont need conversion but looks like easy way to make dictionary
 # Create a DataFrame with labels and species as columns: df
 # df = pd.DataFrame({'labels': labels, 'species': species})
+
+G = nx.path_graph(10)
+communities = girvan_newman(G)
+print(communities)

@@ -8,8 +8,9 @@ import collections
 
 # Build Graph 'G'
 A = np.genfromtxt('adj_mat.txt', delimiter=",", skip_header=1)  # Load in adj_mat
+adj_mat = A[A > 0]
 tracks_mat = np.genfromtxt('Node_Pos_t1.txt', delimiter=",")  # Load positions
-G = nx.from_numpy_matrix(A, create_using=None)  # Generate graph from adj_mat
+G = nx.from_numpy_matrix(adj_mat, create_using=None)  # Generate graph from adj_mat
 
 num_nodes = len(tracks_mat) # Calculate number of nodes for given time-frame
 
@@ -45,6 +46,7 @@ type(edgebtwn)
 # we just want the numbers from this output dictionary
 items = edgebtwn.values()
 print(items)
+
 
 # Histogram of edge_betweenness centrality
 #plt.figure(2)

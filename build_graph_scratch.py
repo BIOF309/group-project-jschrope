@@ -112,11 +112,13 @@ for i in range(len(conn_list)):
 #   to make a pretty little video of the network
 plt.savefig('network_image.jpg') # just save to current directory
 
-###
+### Build Communities
 
 
-# Now call function
+# Apply girvan_newman algorithm
+
 G_test = nx.karate_club_graph()
+
 comm_list = community.girvan_newman(G3)
 split1 = tuple(sorted(c) for c in next(comm_list))
 comm1 = split1[0]

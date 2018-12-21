@@ -61,6 +61,18 @@ plt.show()
 # G_test = nx.karate_club_graph()
 
 comm_list = community.girvan_newman(G)  # Outputs list of nodes in each community as tuple
+""" 
+    This function deconstructs a graph object into communities 
+    based on the girvan_newman algorithm (see 'references' folder)
+
+    Parameters: 
+    arg1 (G): Graph object input
+
+    Returns: 
+    c:  generator, holds lists of node labels in each community
+
+"""
+
 split1 = tuple(sorted(c) for c in next(comm_list))
 comm1 = split1[0]  # First community (first tuple index)
 comm2 = split1[1]  # Second community (second tuple index)

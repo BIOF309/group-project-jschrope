@@ -25,6 +25,10 @@ Important Files:
         
 Project Outcome/Thoughts:
 
+    Notes:      I only split unto 2 communities here. Later I can easliy to more by modifying the input to girvan_newman function
+                The project rubric wants docstrings. I include these in my 'girvan_newman_manual' file when defining my own functions
+                This file will run, and I believe correctly, I just cannot access the output. 
+
     Issues:     The connectivity of my current graph is messed up. The node positions seem to be correct, but the 
                 edges clearly are not. It should look like more of a tesselation of polygon shapes that represent cells.
     

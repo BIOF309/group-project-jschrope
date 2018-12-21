@@ -39,7 +39,7 @@ My first exercise is splitting network into communities based on the Girvin-Newm
     
    2. Construct "Graph" for each time-frame
     
-   3. Calculate 'edge-betweenness'
+   3. Calculate 'edge-betweenness_centrality'
     
    4. Use that value to build communities based on [https://journals.aps.org/pre/abstract/10.1103/PhysRevE.69.026113]
     

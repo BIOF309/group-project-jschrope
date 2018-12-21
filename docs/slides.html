@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+ "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <title>slides</title>
+  <style type="text/css">
+      code{white-space: pre-wrap;}
+      span.smallcaps{font-variant: small-caps;}
+      span.underline{text-decoration: underline;}
+      div.column{display: inline-block; vertical-align: top; width: 50%;}
+  </style>
+  <link rel="stylesheet" type="text/css" media="screen, projection, print"
+    href="https://www.w3.org/Talks/Tools/Slidy2/styles/slidy.css" />
+  <script src="https://www.w3.org/Talks/Tools/Slidy2/scripts/slidy.js"
+    charset="utf-8" type="text/javascript"></script>
+</head>
+<body>
+<div id="motivation" class="slide section level1">
+<h1>Motivation</h1>
+<p>Collective cell migration (CCM) observed in cancer metastasis</p>
+<p>Overall goal is to understand the underlying physics of CCM through image analysis and mathematical modeling</p>
+<p>Most imaging studies of CCM done in-vitro in cell culture of epithelial cell monolayer. In-vivo would be even better…</p>
+<p>Zebrafish act as a model organism to study CCM</p>
+<ol style="list-style-type: decimal">
+<li><p>Cluster of cells called the posterior lateral line primordium (pllp) migrates during early development</p></li>
+<li><p>Transparency allows for easy in-vivo confocal imaging</p></li>
+</ol>
+</div>
+<div id="zebrafish-pllp-side-view-schematic" class="slide section level1">
+<h1>Zebrafish pllp: Side view schematic</h1>
+<div class="figure">
+<img src="/Users/jonschrope1/PycharmProjects/group-project-jschrope/images/pllp_side_schematic.jpg" alt="alt text" />
+<p class="caption">alt text</p>
+</div>
+</div>
+<div id="previousbackground-work" class="slide section level1">
+<h1>Previous/Background Work</h1>
+<p>My lab has taken movies of different phenotypes of the pllp after making various chemical modifications to the system (ex. inhibiting FGF, Wnt pathways)</p>
+<p>I previously wrote code to extract and track vertex/node movement. Thus I have an adjacency matrix and node positions for each time-frame.</p>
+<ol style="list-style-type: decimal">
+<li>Single time frame image</li>
+</ol>
+<div class="figure">
+<img src="../images/newtork_image.jpg" alt="alt text" />
+<p class="caption">alt text</p>
+</div>
+</div>
+<div id="project-goal" class="slide section level1">
+<h1>Project Goal</h1>
+<p>My goal: Use python (networkx specifically) for network analysis of pllp to investigate physical differences between different pllp phenotypes</p>
+<p>My first exercise is splitting network into communities based on the Girvin-Newman algorithm</p>
+<ol style="list-style-type: decimal">
+<li><p>Load in adjacency matrix and node positions from Matlab</p></li>
+<li><p>Construct “Graph” for each time-frame</p></li>
+<li><p>Calculate ‘edge-betweenness_centrality’</p></li>
+<li><p>Use that value to build communities based on [https://journals.aps.org/pre/abstract/10.1103/PhysRevE.69.026113]</p></li>
+</ol>
+</div>
+<div id="girvan-newman-algorithm-to-build-communities" class="slide section level1">
+<h1>Girvan-Newman Algorithm to Build Communities</h1>
+<p>The algorithm’s steps for community detection are summarized below:</p>
+<p>1.The betweenness of all existing edges in the network is calculated first.</p>
+<p>2.The edge with the highest betweenness is removed.</p>
+<p>3.The betweenness of all edges affected by the removal is recalculated.</p>
+<p>4.Steps 2 and 3 are repeated until no edges remain.</p>
+<p>Python makes this easy: girvan_newman(G, most_valuable_edge=None)</p>
+<p>However I also wrote my own manual function ‘girvan_newman_manual’. I am pretty sure that it works correctly but I do not understand how to access the output data type.. so who really knows.</p>
+</div>
+<div id="step-0-input-files" class="slide section level1">
+<h1>Step 0: Input files</h1>
+<ol style="list-style-type: decimal">
+<li><p>adj_mat.txt <embed src="/Users/jonschrope1/PycharmProjects/group-project-jschrope/images/adj_mat.pdf" /></p></li>
+<li><p>node_tracks.txt</p></li>
+</ol>
+<div class="figure">
+<embed src="/Users/jonschrope1/PycharmProjects/group-project-jschrope/images/tracks.pdf" />
+<p class="caption">alt text</p>
+</div>
+<p>– node (x,y) positions given by first two columns</p>
+</div>
+<div id="step-1-create-dictionary-to-specify-node-positions" class="slide section level1">
+<h1>Step 1: Create dictionary to specify node positions</h1>
+<div class="figure">
+<img src="../images/Step_1.png" alt="alt text" />
+<p class="caption">alt text</p>
+</div>
+</div>
+<div id="step-2-construct-graph-object-from-nonzero-adjacency-matrix-indices" class="slide section level1">
+<h1>Step 2: Construct graph object from nonzero adjacency matrix indices</h1>
+<div class="figure">
+<img src="../images/Step_2.png" alt="alt text" />
+<p class="caption">alt text</p>
+</div>
+<p><img src="../images/first_try_network.jpg" alt="alt text" /> (current output)</p>
+</div>
+<div id="step-3-apply-girvan-newman-algorithm-to-build-communities" class="slide section level1">
+<h1>Step 3: Apply Girvan-Newman algorithm to build communities</h1>
+<div class="figure">
+<img src="../images/Step_3.png" alt="alt text" />
+<p class="caption">alt text</p>
+</div>
+</div>
+<div id="step-4-visualize-the-output" class="slide section level1">
+<h1>Step 4: Visualize the output</h1>
+<p><img src="/Users/jonschrope1/PycharmProjects/group-project-jschrope/images/communities_image.png" alt="alt text" /> (current output)</p>
+</div>
+<div id="next-steps" class="slide section level1">
+<h1>Next steps:</h1>
+<p>– Adjacency matrix is clearly messed up… look into how I am saving the .mat files from matlab to .txt or .xls files. Something is off…</p>
+<p>– Also need to adjust aspect ratio of output image</p>
+</div>
+<div id="end-goal" class="slide section level1">
+<h1>End goal</h1>
+<ol style="list-style-type: decimal">
+<li>Build communities for each time frame</li>
+<li>Compile into a movie to examine the dynamics of the communities ex. Does a certain part of the pllp always constitute a “community” Do the community locations change under different phenotypes? Do the communities move/drift throughout the movie?</li>
+</ol>
+</div>
+</body>
+</html>

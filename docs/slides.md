@@ -15,11 +15,11 @@ Zebrafish act as a model organism to study CCM
     
 # Zebrafish pllp: Side view schematic
     
-  ![alt text](images/pllp_side_schematic.jpg)
+  ![alt text](../images/pllp_side_schematic.jpg)
     
 # Zebrafish pllp: Top view 3D projection movie
     
-  ![alt text](images/pllp_movie.avi)
+  ![alt text](../images/pllp_movie.avi)
     
 # Previous/Background Work
 
@@ -30,7 +30,7 @@ I previously wrote code to extract and track vertex/node movement. Thus I have a
 
 1. Single time frame image
 
-![alt text](images/newtork_image.jpg)
+![alt text](../images/newtork_image.jpg)
 
 
 # Project Goal
@@ -49,11 +49,11 @@ My first exercise is splitting network into communities based on the Girvin-Newm
 # Progress: Input Files
 
 1. adj_mat.txt
-![alt text](images/adj_mat.pdf)
+![alt text](../images/adj_mat.pdf)
 
 2. node_tracks.txt
 
-![alt text](images/tracks.pdf)
+![alt text](../images/tracks.pdf)
 
     -- node (x,y) positions given by first two columns
 
@@ -90,7 +90,7 @@ plt.show()
 
 # Progress: Current Output
 
-![alt text](images/first_try_network.jpg) (current output)
+![alt text](../images/first_try_network.jpg) (current output)
 
 -- Adjacency matrix is clearly messed up. Look into on Matlab side. 
 -- Also need to fix aspect ratio. 

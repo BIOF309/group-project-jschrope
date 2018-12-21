@@ -1,3 +1,8 @@
+# This is my "scratch" code that outline my three
+# attempts of creating the graph object, among other
+# various snippets that I want to keep track of...
+
+
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
@@ -8,7 +13,7 @@ from networkx.algorithms import community
 # Load in .txt and .xls files exported from Matlab (will explain them later)
 pos_mat = np.genfromtxt('Node_Pos_t1.txt', delimiter=",")  # Holds node positions (among other info)
 conn_df = pd.read_excel('conn_list.xls')  # Holds the 'connectivity' of each node
-conn_list = np.genfromtxt('filename.txt')  # Essentially the indices of the adjacency matrix
+conn_list = np.genfromtxt('adj_mat_index_list.txt')  # Essentially the indices of the adjacency matrix
 
 
 ### Step 1: Load in node_positions
@@ -135,4 +140,21 @@ for node in comm2:
 nx.draw(G3, pos=pos_dict, node_color=color_map, with_labels=True)
 plt.show()
 
+### Excess scratch code
 
+# From datacamp...
+
+# Zip lists: zipped_lists
+# zipped_lists = zip(feature_names,row_vals) # zip up two lists
+
+
+# Create a dictionary: rs_dict
+# rs_dict = dict(zipped_lists) # convert to dictionary
+
+# Print the dictionary
+# print(rs_dict)
+
+
+# This is making a dictionary then converting it to dataframe. dont need conversion but looks like easy way to make dictionary
+# Create a DataFrame with labels and species as columns: df
+# df = pd.DataFrame({'labels': labels, 'species': species})

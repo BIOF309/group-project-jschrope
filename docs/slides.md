@@ -16,11 +16,8 @@ Zebrafish act as a model organism to study CCM
 # Zebrafish pllp: Side view schematic
     
   ![alt text](../images/pllp_side_schematic.jpg)
-    
-# Zebrafish pllp: Top view 3D projection movie
-    
-  ![alt text](../images/pllp_movie.avi)
-    
+
+ 
 # Previous/Background Work
 
 My lab has taken movies of different phenotypes of the pllp after making various chemical modifications to the system
@@ -46,59 +43,6 @@ My first exercise is splitting network into communities based on the Girvin-Newm
     
    4. Use that value to build communities based on [https://journals.aps.org/pre/abstract/10.1103/PhysRevE.69.026113]
     
-# Progress: Input Files
-
-1. adj_mat.txt
-![alt text](../images/adj_mat.pdf)
-
-2. node_tracks.txt
-
-![alt text](../images/tracks.pdf)
-
-    -- node (x,y) positions given by first two columns
-
-# Progress: Code
-% Import the modules/packages that I need
-from math import *
-import numpy as np
-import networkx as nx
-import matplotlib.pyplot as plt
-import collections
-
-% Build Graph 'G'
-
-A = np.genfromtxt('adj_mat.txt', delimiter=",", skip_header=1)  # Load in adj_mat
-
-tracks_mat = np.genfromtxt('Node_Pos_t1.txt', delimiter=",")  # Load positions
-
-G = nx.from_numpy_matrix(A, create_using=None)  # Generate graph from adj_mat
-
-
-num_nodes = len(tracks_mat) # Calculate number of nodes for given time-frame
- 
-%% Specify node position
-
-pos_dict= {} 
-
-for i in range(len(tracks_mat[:, 0])): # Loop through the number of nodes
-
-   pos_dict[i] = (tracks_mat[i,0],tracks_mat[i,1]) # assign position values to node keys
-
-plt.figure(1)
-nx.draw(G, pos=pos_dict)
-plt.show()
-
-# Progress: Current Output
-
-![alt text](../images/first_try_network.jpg) (current output)
-
--- Adjacency matrix is clearly messed up. Look into on Matlab side. 
--- Also need to fix aspect ratio. 
-
-# Next steps: Try using node positions and connectivity/edge list
-1. Edge list
-2. Node positions(as before)
-
 # Girvan-Newman Algorithm to Build Communities
 
 The algorithm's steps for community detection are summarized below:
@@ -113,11 +57,48 @@ The algorithm's steps for community detection are summarized below:
 
 Python makes this easy: girvan_newman(G, most_valuable_edge=None)
 
+However I also wrote my own manual function 'girvan_newman_manual'. 
+I am pretty sure that it works correctly but I do not understand 
+how to access the output data type.. so who really knows. 
+
+# Step 0: Input files
+
+1. adj_mat.txt
+![alt text](../images/adj_mat.pdf)
+
+2. node_tracks.txt
+
+![alt text](../images/tracks.pdf)
+
+    -- node (x,y) positions given by first two columns
+
+# Step 1: Create dictionary to specify node positions
+![alt text](../images/Step_1.png)
+
+# Step 2: Construct graph object from nonzero adjacency matrix indices
+
+![alt text](../images/Step_2.png)
+
+![alt text](../images/first_try_network.jpg) (current output)
+
+# Step 3: Apply Girvan-Newman algorithm to build communities
+
+![alt text](../images/Step_3.png)
+
+# Step 4: Visualize the output
+![alt text](../images/first_try_network.jpg) (current output)
+
+
+# Next steps: 
+-- Adjacency matrix is clearly messed up... look into how I am saving the
+   .mat files from matlab to .txt or .xls files. Something is off... 
+-- Also need to adjust aspect ratio of output image
+
+
 # End goal
-1. Build communities for each frame
+1. Build communities for each time frame
 2. Compile into a movie to examine the dynamics of the communities
     ex. Does a certain part of the pllp always constitute a "community"
         Do the community locations change under different phenotypes?
-        DO the communities move/drift throughout the movie?
+        Do the communities move/drift throughout the movie?
         
-    -- I plan to have this done by the end of next week

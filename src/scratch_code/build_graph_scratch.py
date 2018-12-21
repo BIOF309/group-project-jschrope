@@ -129,7 +129,6 @@ split1 = tuple(sorted(c) for c in next(comm_list))
 comm1 = split1[0]
 comm2 = split1[1]
 
-
 plt.figure(4)
 
 color_map = []

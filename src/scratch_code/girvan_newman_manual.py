@@ -8,6 +8,7 @@
 # "generator object" which I cannot for the life of me
 # figure out how to work with or visualize...
 
+import networkx as nx
 
 def edge_to_remove(G): # returns edge to remove, calculated by the edge with highest betweenness centrality value
     """

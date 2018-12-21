@@ -86,7 +86,7 @@ how to access the output data type.. so who really knows.
 ![alt text](../images/Step_3.png)
 
 # Step 4: Visualize the output
-![alt text](../images/first_try_network.jpg) (current output)
+![alt text](/Users/jonschrope1/PycharmProjects/Network_Analysis/group-project-jschrope/images/communities_image.png) (current output)
 
 
 # Next steps: 

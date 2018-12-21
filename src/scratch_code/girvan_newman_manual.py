@@ -47,7 +47,6 @@ def girvan_newman(g):
         c:  generator, holds lists of node labels in each community
 
         Other functions used: edge_to_remove(G)
-
     """
 
     c = nx.connected_component_subgraphs(g)  # return connective component of graph as subgraph (we only have 1 so returns 1)
@@ -63,10 +62,8 @@ def girvan_newman(g):
 
     return c
 
-  """ 
-  
-  Example: 
-    G_test = nx.karate_club_graph()
-    comm_node_list = girvan_newman(G_test)
-    
-  """
+
+# Example Usage:
+
+G_test = nx.karate_club_graph()
+comm_node_list = girvan_newman(G_test)

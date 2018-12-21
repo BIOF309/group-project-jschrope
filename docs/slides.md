@@ -70,7 +70,7 @@ how to access the output data type.. so who really knows.
 
 ![alt text](../images/tracks.pdf)
 
-    -- node (x,y) positions given by first two columns
+ -- node (x,y) positions given by first two columns
 
 # Step 1: Create dictionary to specify node positions
 ![alt text](../images/Step_1.png)

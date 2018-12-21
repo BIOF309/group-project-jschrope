@@ -15,7 +15,7 @@ Zebrafish act as a model organism to study CCM
     
 # Zebrafish pllp: Side view schematic
     
-  ![alt text](/Users/jonschrope1/PycharmProjects/group-project-jschrope/images/pllp_side_schematic.jpg)
+  ![alt text](../images/pllp_side_schematic.jpg)
 
  
 # Previous/Background Work
@@ -64,13 +64,13 @@ how to access the output data type.. so who really knows.
 # Step 0: Input files
 
 1. adj_mat.txt
-![alt text](/Users/jonschrope1/PycharmProjects/group-project-jschrope/images/adj_mat.pdf)
+![alt text](../images/adj_mat.pdf)
 
 2. node_tracks.txt
 
-![alt text](/Users/jonschrope1/PycharmProjects/group-project-jschrope/images/tracks.pdf)
+![alt text](../images/tracks.pdf)
 
--- node (x,y) positions given by first two columns
+    -- node (x,y) positions given by first two columns
 
 # Step 1: Create dictionary to specify node positions
 ![alt text](../images/Step_1.png)
@@ -86,13 +86,12 @@ how to access the output data type.. so who really knows.
 ![alt text](../images/Step_3.png)
 
 # Step 4: Visualize the output
-![alt text](/Users/jonschrope1/PycharmProjects/group-project-jschrope/images/communities_image.png) (current output)
+![alt text](../images/first_try_network.jpg) (current output)
 
 
 # Next steps: 
 -- Adjacency matrix is clearly messed up... look into how I am saving the
    .mat files from matlab to .txt or .xls files. Something is off... 
-   
 -- Also need to adjust aspect ratio of output image
 
 
